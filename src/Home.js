@@ -1,31 +1,22 @@
+import { useState } from 'react';
+
 const Home = () => {
+  //destructure the value and the callback function from useState()
+  const [name, setName] = useState('mario');
+  const [age, setAge] = useState(25);
+
   const handleClick = () => {
-    console.log('hello ninjas!');
-  };
-
-  const handleClickAgain = (name) => {
-    console.log(`Hello, ${name}`);
-  };
-
-  const handleClickEvent = (e) => {
-    console.log('hello world', e.target);
+    setName('luigi');
+    setAge(28);
   };
 
   return (
     <div className='home'>
       <h2>Homepage</h2>
-      {/* hook event handler to button */}
-      <button onClick={handleClick}>Click me!</button>
-      {/* hook event with parameter to button */}
-      <button
-        onClick={() => {
-          handleClickAgain('mario');
-        }}
-      >
-        Click!
-      </button>
-      {/* hook with event object */}
-      <button onClick={(e) => handleClickEvent(e)}>Click event</button>
+      <p>
+        {name}, {age} years old.
+      </p>
+      <button onClick={handleClick}>Click to update</button>
     </div>
   );
 };
