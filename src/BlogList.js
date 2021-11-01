@@ -1,7 +1,5 @@
 // destructure props data from Home component in the parameter
 const BlogList = ({ blogs, title }) => {
-  // store as blogs
-  const blogs = props.blogs;
   return (
     <div className='blog-list'>
       <h2>{title}</h2>
