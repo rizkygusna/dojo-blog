@@ -12,6 +12,11 @@ const Home = () => {
     <div className='home'>
       {/* bloglist component with blogs props */}
       <BlogList blogs={blogs} title='All Blogs' />
+      {/* showing blog post based on the author */}
+      <BlogList
+        blogs={blogs.filter((blog) => blog.author === 'mario')}
+        title="Mario's Blogs"
+      />
     </div>
   );
 };
