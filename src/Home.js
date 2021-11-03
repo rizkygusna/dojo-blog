@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react';
 import BlogList from './BlogList';
 
 const Home = () => {
+  //blogs data state
   const [blogs, setBlogs] = useState(null);
+  //pending state
+  const [isPending, setIsPending] = useState(true);
 
   //use effect can't run async function
   useEffect(() => {
@@ -11,10 +14,12 @@ const Home = () => {
       try {
         //get response from endpoint
         const res = await fetch('http://localhost:8000/blogs');
-        //get data
+        //get data from response
         const data = await res.json();
         //set data to blogs state
         setBlogs(data);
+        //set pending state to false
+        setIsPending(false);
       } catch (error) {
         console.log('could not fetch data', error);
       }
@@ -25,6 +30,8 @@ const Home = () => {
 
   return (
     <div className='home'>
+      {/* render if the data still loading */}
+      {isPending && <div>Loading data..</div>}
       {/* render bloglist component if the blogs is fetched */}
       {blogs && <BlogList blogs={blogs} title='All Blogs' />}
     </div>
