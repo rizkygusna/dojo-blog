@@ -15,7 +15,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    // this runs every render
+    // this runs every render and blogs state update
     console.log('use effect ran');
   }, [blogs]);
 
