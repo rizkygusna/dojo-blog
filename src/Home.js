@@ -2,27 +2,31 @@ import { useState, useEffect } from 'react';
 import BlogList from './BlogList';
 
 const Home = () => {
-  const [blogs, setBlogs] = useState([
-    { title: 'My new website', body: 'lorem ipsum...', author: 'mario', id: 1 },
-    { title: 'Welcome party!', body: 'lorem ipsum...', author: 'yoshi', id: 2 },
-    { title: 'Web dev top tips', body: 'lorem ipsum...', author: 'mario', id: 3 },
-  ]);
+  const [blogs, setBlogs] = useState(null);
 
-  const handleDelete = (id) => {
-    const newBlogs = blogs.filter((blog) => blog.id !== id);
-    // update data using useState()
-    setBlogs(newBlogs);
-  };
-
+  //use effect can't run async function
   useEffect(() => {
-    // this runs every render and blogs state update
-    console.log('use effect ran');
-  }, [blogs]);
+    //declare the async function to fetch data
+    async function fetchData() {
+      try {
+        //get response from endpoint
+        const res = await fetch('http://localhost:8000/blogs');
+        //get data
+        const data = await res.json();
+        //set data to blogs state
+        setBlogs(data);
+      } catch (error) {
+        console.log('could not fetch data', error);
+      }
+    }
+    //call the async function. Boom, function calling async function
+    fetchData();
+  }, []);
 
   return (
     <div className='home'>
-      {/* bloglist component with blogs props */}
-      <BlogList blogs={blogs} title='All Blogs' handleDelete={handleDelete} />
+      {/* render bloglist component if the blogs is fetched */}
+      {blogs && <BlogList blogs={blogs} title='All Blogs' />}
     </div>
   );
 };
