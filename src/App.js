@@ -1,15 +1,25 @@
 import Navbar from './Navbar';
 import Home from './Home';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import CreateBlog from './CreateBlog';
 
 //root component
 function App() {
   return (
-    <div className='App'>
-      <Navbar />
-      <div className='content'>
-        <Home />
+    //include BrowserRouter for all children component
+    <Router>
+      <div className='App'>
+        <Navbar />
+        <div className='content'>
+          {/* wrap all the routes with Routes tag */}
+          <Routes>
+            {/* link the route with path and component */}
+            <Route exact path='/' element={<Home />} />
+            <Route path='/create' element={<CreateBlog />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 }
 

@@ -25,7 +25,7 @@ const useFetch = (url) => {
         const data = await res.json();
         //set pending state to false
         setIsPending(false);
-        //set data to blogs state
+        //set new data state
         setData(data);
         //reset error state
         setError(null);
@@ -34,12 +34,12 @@ const useFetch = (url) => {
         setError(error.message);
       }
     }
-    //call the async function. Boom, function calling async function
+    //call the async function
     fetchData();
     //run only if the url is changed
   }, [url]);
-
+  //return the states as object
   return { data, isPending, error };
 };
 
-export default useFetch();
+export default useFetch;
