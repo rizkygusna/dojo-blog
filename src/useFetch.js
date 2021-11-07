@@ -11,11 +11,14 @@ const useFetch = (url) => {
 
   //use effect can't run async function
   useEffect(() => {
+    //initialize AbortController object
+    const abortController = new AbortController();
+
     //declare the async function to fetch data
     async function fetchData() {
       try {
-        //get response from endpoint
-        const res = await fetch(url);
+        //get response from url and using signal from AbortController
+        const res = await fetch(url, { signal: abortController.signal });
         //if the data is not found
         if (!res.ok) {
           setIsPending(false);
@@ -30,13 +33,24 @@ const useFetch = (url) => {
         //reset error state
         setError(null);
       } catch (error) {
-        console.log(error.message);
-        setError(error.message);
+        //if the fetch is aborted, don't update the state
+        if (error.name === 'AbortError') {
+          console.log('Fetch aborted');
+        } else {
+          setIsPending(false);
+          setError(error.message);
+          console.log(error.message);
+        }
       }
     }
     //call the async function
-    fetchData();
-    //run only if the url is changed
+    setTimeout(() => {
+      fetchData();
+    }, 2000);
+    //run cleanup function if the component unmounts
+    return () => abortController.abort();
+
+    //run the effect only if the url is changed
   }, [url]);
   //return the states as object
   return { data, isPending, error };
