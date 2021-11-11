@@ -4,11 +4,27 @@ const CreateBlog = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [author, setAuthor] = useState('mario');
+  const [isPending, setIsPending] = useState(false);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const blog = { title, body, author };
+    setIsPending(true);
+    //make post request to the URL endpoint
+    fetch('http://localhost:8000/blogs', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      //convert blog object to json string
+      body: JSON.stringify(blog),
+    }).then(() => {
+      setIsPending(false);
+      console.log('Blog posted');
+    });
+  };
   return (
     <div className='create'>
       <h2>Add a New Blog</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>Blog title:</label>
         <input
           type='text'
@@ -29,7 +45,8 @@ const CreateBlog = () => {
           <option value='mario'>Mario</option>
           <option value='yoshi'>Yoshi</option>
         </select>
-        <button>Add Blog</button>
+        {!isPending && <button>Add Blog</button>}
+        {isPending && <button disabled>Adding Blog</button>}
       </form>
       <div className='create-preview'>
         <h3>{title}</h3>
