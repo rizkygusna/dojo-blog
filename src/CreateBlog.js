@@ -1,10 +1,13 @@
 import { useState } from 'react/cjs/react.development';
+import { useNavigate } from 'react-router-dom';
 
 const CreateBlog = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [author, setAuthor] = useState('mario');
   const [isPending, setIsPending] = useState(false);
+  //use navigate from react router to redirect page
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,6 +22,8 @@ const CreateBlog = () => {
     }).then(() => {
       setIsPending(false);
       console.log('Blog posted');
+      //redirect to home page
+      navigate('/');
     });
   };
   return (
