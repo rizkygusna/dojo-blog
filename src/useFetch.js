@@ -44,9 +44,7 @@ const useFetch = (url) => {
       }
     }
     //call the async function
-    setTimeout(() => {
-      fetchData();
-    }, 1000);
+    fetchData();
     //run cleanup function if the component unmounts
     return () => abortController.abort();
 
