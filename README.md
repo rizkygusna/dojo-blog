@@ -2,9 +2,18 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Getting Started
 
-In the project directory, you can run:
+This app uses JSON Server as the Backend for data retrieval.
+
+### Install JSON Server
+
+`npm install json-server`
+
+### Start the Service
+
+Run this command below in the project directory.
+`json-server --watch ./data/db.json --port 8000`
 
 ### `npm start`
 
