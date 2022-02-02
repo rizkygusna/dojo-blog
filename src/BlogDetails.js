@@ -7,13 +7,18 @@ const BlogDetails = () => {
   //use navigate from react router to redirect user
   const navigate = useNavigate();
   //fetch the blog data according to id
-  const { data: blog, error, isPending } = useFetch('http://localhost:8000/blogs/' + id);
+  const {
+    data: blog,
+    error,
+    isPending,
+  } = useFetch('https://my-json-server.typicode.com/rizkygusna/dojo-blog/blogs/' + id);
 
   //handle delete data
   const handleClick = () => {
-    fetch('http://localhost:8000/blogs/' + blog.id, {
+    fetch('https://my-json-server.typicode.com/rizkygusna/dojo-blog/blogs/' + blog.id, {
       method: 'DELETE',
     }).then(() => {
+      console.log('Blog deleted');
       navigate('/');
     });
   };

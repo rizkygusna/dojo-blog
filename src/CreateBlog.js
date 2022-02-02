@@ -14,7 +14,7 @@ const CreateBlog = () => {
     const blog = { title, body, author };
     setIsPending(true);
     //make post request to the URL endpoint
-    fetch('http://localhost:8000/blogs', {
+    fetch('https://my-json-server.typicode.com/rizkygusna/dojo-blog/blogs', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       //convert blog object to json string
